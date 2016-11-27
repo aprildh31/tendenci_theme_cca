@@ -1,0 +1,70 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<h5>
+    <i class="fa fa-camera fa-lg" aria-hidden="true"></i> Latest Photos
+    <a class="btn btn-primary float-xs-right" href="/photos/">All Photo Sets</a>
+</h5>
+<br>
+{% list_photo_sets as photo_sets limit=3 %}
+{% for photo_set in photo_sets %}
+    <a title="{{ photo_set.image_set.count }} Photo{{ photo_set.image_set.count|pluralize }}"
+        href="{{ photo_set.get_absolute_url }}">
+        {% if photo_set.get_cover_photo %}
+            <img src="{{ photo_set.get_cover_photo.get_album_cover_url }}" class="rounded" alt="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" title="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" />
+        {% else %}
+            <img src="{{ photo_set.get_default_cover_photo }}" class="rounded" alt="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" title="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" />
+        {% endif %}
+    </a>
+{% endfor %}
+
+{% comment %}
+{% photo_image_url photo size=140x140 crop=True constrain=True %}
+
+<div class="card">
+	<h5 class="card-header"><i class="fa fa-camera" aria-hidden="true"></i> Latest Photos</h5>
+	<div class="card-block">
+		{% list_photos as photos is_public=true limit=3 %}
+		{% for photo in photos %}
+		  <img src="{% photo_image_url photo size=140x140 crop=True constrain=True %}" class="rounded" />&nbsp;
+		{% endfor %}
+		<a class="btn btn-primary float-xs-left" href="/photos/"><i class="fa fa-camera" aria-hidden="true"></i> View Photo Sets</a>
+	</div>
+</div>
+
+<a href="{% url 'photo_image_url' %}"><img src="{% photo_image_url photo size=140x140 crop=True constrain=True %}" /></a>
+
+{% list_photos as photos%}
+{% for photo in photos %}
+    <img src="{% photo_image_url photo size=100x100 crop=True constrain=True %}" />
+{% endfor %}
+
+{% list_photos as photos user=user limit=3 %}
+{% for photo in photos %}
+    <img src="{% photo_image_url photo size=100x100 crop=True constrain=True %}" />
+{% endfor %}
+
+{% list_photos as photos_list limit=5 tags="cool" %}
+{% for photo in photos_list %}
+    {{ photo.title }}
+{% endfor %}
+
+For each photo set, display the cover photo in the photo box.
+Limit to the most recent 3-5 photo sets.
+Photo set must be active, and viewable by the public.
+
+{% endcomment %}

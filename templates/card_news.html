@@ -1,0 +1,64 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<h5>
+	<i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News
+	<a class="btn btn-primary float-xs-right" href="/news/">All News</a>
+</h5>
+<br>
+<ul class="list-group">
+	{% list_news as news_list limit=3 %}
+	{% for news_item in news_list %}
+	<li class="list-group-item">
+		<a href="{{ news_item.get_absolute_url }}">
+			<strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
+		</a>
+		<br>
+		<em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
+	</li>
+	{% empty %}
+	<li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
+	{% endfor %}
+</ul>
+{% if news_list %}
+<a class="btn btn-secondary float-xs-right" href="{% url 'news.search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search News</a>
+{% endif %}
+{% comment %}
+<div class="card">
+	<h5 class="card-header"><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News</h5>
+	<div class="card-block">
+		<ul class="list-group">
+			{% list_news as news_list limit=3 %}
+			{% for news_item in news_list %}
+				<li class="list-group-item">
+					<a href="{{ news_item.get_absolute_url }}">
+						<strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
+					</a>
+					<br>
+					<em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
+				</li>
+				{% empty %}
+				<li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
+			{% endfor %}
+		</ul>
+		{% if news_list %}
+			<a class="btn btn-secondary" href="{% url 'news.search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search News</a>
+		{% endif %}
+		<a class="btn btn-primary" href="/news/"><i class="fa fa-newspaper-o" aria-hidden="true"></i> News</a>
+	</div>
+</div>
+{% endcomment %}

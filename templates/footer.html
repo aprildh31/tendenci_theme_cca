@@ -1,0 +1,30 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<hr>
+
+<div class="row">
+	<div class="col-sm-4">
+		{% box 2 %}
+	</div>
+	<div class="col-sm-4">
+		{% box 4 %}
+	</div>
+	<div class="col-sm-4">
+		{% box 3 %}
+	</div>
+</div>

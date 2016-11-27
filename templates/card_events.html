@@ -1,0 +1,73 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<h5>
+	<i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Upcoming Events
+	<a class="btn btn-primary float-xs-right" href="/events/">Calendar</a>
+</h5>
+<br>
+<ul class="list-group">
+	{% list_events as events_list limit=3 %}
+	{% for event in events_list %}
+	<li class="list-group-item">
+		<a href="{{ event.get_absolute_url }}">
+			<strong>{% blocktrans with title=event.title %}{{ title }}{% endblocktrans %}</strong><br>
+			{% if event.start_dt|date:"dmy" == event.end_dt|date:"dmy" %}
+			{{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"g:i A" }}
+			{% else %}
+			{{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"D, M j, Y - g:i A" }}
+			{% endif %}
+		</a>
+	</li>
+	{% empty %}
+	<li class="list-group-item">{% trans 'Events will be shown here. <a href="/events/add/">Start adding events now!</a>' %}</li>
+	{% endfor %}
+</ul>
+{% if events_list %}
+<a class="btn btn-secondary float-xs-right" href="{% url 'event.search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search Events</a>
+{% endif %}
+
+{% comment %}
+
+<div class="card">
+<h5 class="card-header"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Upcoming Events</h5>
+<div class="card-block">
+<ul class="list-group">
+{% list_events as events_list limit=3 %}
+{% for event in events_list %}
+<li class="list-group-item">
+<a href="{{ event.get_absolute_url }}">
+<strong>{% blocktrans with title=event.title %}{{ title }}{% endblocktrans %}</strong><br>
+{% if event.start_dt|date:"dmy" == event.end_dt|date:"dmy" %}
+{{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"g:i A" }}
+{% else %}
+{{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"D, M j, Y - g:i A" }}
+{% endif %}
+</a>
+</li>
+{% empty %}
+<li class="list-group-item">{% trans 'Events will be shown here. <a href="/events/add/">Start adding events now!</a>' %}</li>
+{% endfor %}
+</ul>
+{% if events_list %}
+<a class="btn btn-secondary" href="{% url 'event.search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search Events</a>
+{% endif %}
+<a class="btn btn-primary" href="/events/"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</a>
+</div>
+</div>
+
+{% endcomment %}

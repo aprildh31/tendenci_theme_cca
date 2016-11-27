@@ -1,0 +1,14 @@
+{% load i18n %}
+{% load box_tags %}
+
+<div class="row">
+	<div class="col-sm-4">
+		{% box 20 %}
+	</div>
+	<div class="col-sm-4">
+		<a href="/sponsors/">{% box 19 %}</a>
+	</div>
+	<div class="col-sm-4">
+		box 3
+	</div>
+</div>

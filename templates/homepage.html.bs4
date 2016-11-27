@@ -1,0 +1,43 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+{% theme_extends "default.html" %}
+
+{% block content %}
+
+	<div class="card">
+		<div class="card-block">
+			<h1 class="card-title text-xs-center">Corvette Club of America</h1>
+			<h3 class="card-subtitle text-xs-center text-muted">Est. 1956</h3>
+		  <img src="{{ THEME_URL }}media/images/Corvette_1956_red_side_CCA.png" class ="rounded w-100 image-fluid" alt="1956 Corvette" title="1956 Corvette">
+	  </div>
+	  <div class="card-block">
+	  	<p class="card-text">The Corvette Club of America was established July 17, 1956 and has been in continuous operation for over 60 years.</p>
+	  </div>
+	</div>
+	{% spaceless %}{% theme_include "events.html" %}{% endspaceless %}
+	{% spaceless %}{% theme_include "news.html" %}{% endspaceless %}
+
+{% endblock %}
+
+{% block sidebar_card1 %}
+	{% spaceless %}{% theme_include "sidebar_photos.html" %}{% endspaceless %}
+{% endblock %}
+
+{% block sidebar_card2 %}
+	{% spaceless %}{% theme_include "sidebar_videos.html" %}{% endspaceless %}
+{% endblock %}
