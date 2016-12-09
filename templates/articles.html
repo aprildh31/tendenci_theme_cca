@@ -1,0 +1,44 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load article_tags %}
+
+<div class="row text-xs-center">
+	<div class="col-xs-12 col-md-3">
+		<span class="fa-stack fa-2x">
+			<a href="/articles/">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+			</a>
+		</span>
+		<h4>Latest Articles</h4>
+	</div>
+  {% list_articles as article_list limit=3 %}
+  {% for article_item in article_list %}
+	<div class="col-xs-12 col-md-3">
+    <a href="{{ article_item.get_absolute_url }}">
+      {% blocktrans with h=article_item.headline n=article_item.first_name %}<strong>{{ h }}</strong>
+    </a>
+    <br>
+    <span class="text-muted"> ({{ n }})</span>{% endblocktrans %}
+    <br>
+    <em>{% blocktrans with s=article_item.summary|striptags|safe|truncatewords:"10" %}{{ s }}{% endblocktrans %}</em>
+	</div>
+	{% empty %}
+	<div class="col-xs-12 col-md-9">
+		{% trans 'Articles will be shown here. <a href="/articles/add/">Start adding articles now!</a>' %}
+	</div>
+	{% endfor %}
+</div>

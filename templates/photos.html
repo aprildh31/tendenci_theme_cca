@@ -1,0 +1,49 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<div class="row text-xs-center">
+	<div class="col-xs-12 col-md-3">
+		<div class="d-inline align-middle">
+			<span class="fa-stack fa-2x">
+				<a href="/photos/">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-camera fa-stack-1x fa-inverse"></i>
+				</a>
+			</span>
+			<h4>Latest Photos</h4>
+		</div>
+	</div>
+	{% list_photo_sets as photo_sets limit=3 %}
+	{% for photo_set in photo_sets %}
+	<div class="col-xs-12 col-md-3">
+		<a title="{{ photo_set.image_set.count }} Photo{{ photo_set.image_set.count|pluralize }}" href="{{ photo_set.get_absolute_url }}">
+			<strong>{{ photo_set.name }}&nbsp;</strong>
+			<span class="tag tag-pill tag-default">{{ photo_set.image_set.count }}</span>
+		</a>
+		<br>
+		{% if photo_set.get_cover_photo %}
+		<img src="{{ photo_set.get_cover_photo.get_album_cover_url }}" class="img-thumbnail img-responsive" alt="{% blocktrans with n=photo_set.name|truncatechars:30 %}{{ photo_set.name }}{% endblocktrans %}" title="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" />
+		{% else %}
+		<img src="{{ photo_set.get_default_cover_photo }}" class="img-thumbnail img-responsive" alt="{% blocktrans with n=photo_set.name|truncatechars:30 %}{{ photo_set.name }}{% endblocktrans %}" title="{% blocktrans with n=photo_set.name|truncatechars:123 %}{{ photo_set.name }}{% endblocktrans %}" />
+		{% endif %}
+	</div>
+	{% empty %}
+	<div class="col-xs-12 col-md-9">
+		{% trans 'Photos will be shown here. <a href="/photos/set/add/">Start adding photos now!</a>' %}
+	</div>
+	{% endfor %}
+</div>

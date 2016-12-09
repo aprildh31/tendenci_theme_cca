@@ -1,0 +1,43 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
+{% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load video_filters %}
+
+<div class="row text-xs-center">
+	<div class="col-xs-12 col-md-3">
+		<span class="fa-stack fa-2x">
+			<a href="/videos/">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-video-camera fa-stack-1x fa-inverse"></i>
+			</a>
+		</span>
+		<h4>Latest Videos</h4>
+	</div>
+  {% list_videos as video_list limit=3 %}
+  {% for video_item in video_list %}
+  <div class="col-xs-12 col-md-3">
+    <a title="{{ video_item.title }}" href="{{ video_item.video_url }}">
+			<strong>{{ video_item.title }}</strong>
+		</a>
+      {% if video_item.image %}
+        <img src="{{ video_item.image }}" class="img-thumbnail img-responsive" alt="{% blocktrans with n=video_item.title|truncatechars:30 %}{{ n }}{% endblocktrans %}" title="{% blocktrans with n=video_item.title|truncatechars:30 %}{{ n }}{% endblocktrans %}" />
+      {% endif %}
+  </div>
+  {% empty %}
+  <div class="col-xs-12 col-md-9">
+    {% trans 'Videos will be shown here. <a href="/videos/add/">Start adding videos now!</a>' %}
+  </div>
+  {% endfor %}
+</div>

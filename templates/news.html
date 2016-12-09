@@ -15,29 +15,37 @@
 {% load video_tags %}
 {% load video_filters %}
 
-<h5>
-	<i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News
-	<a class="btn btn-primary float-xs-right" href="/news/">All News</a>
-</h5>
-<br>
-<ul class="list-group">
+<div class="row text-xs-center">
+	<div class="col-xs-12 col-md-3">
+		<span class="fa-stack fa-2x">
+			<a href="/news/">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
+			</a>
+		</span>
+		<h4>Latest News</h4>
+	</div>
 	{% list_news as news_list limit=3 %}
 	{% for news_item in news_list %}
-	<li class="list-group-item">
+	<div class="col-xs-12 col-md-3">
 		<a href="{{ news_item.get_absolute_url }}">
 			<strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
 		</a>
 		<br>
-		<em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
-	</li>
+		<em>{% blocktrans with s=news_item.summary|striptags|safe|truncatewords:"10" %}{{ s }}{% endblocktrans %}</em>
+	</div>
 	{% empty %}
-	<li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
+	<div class="col-xs-12 col-md-9">
+		{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}
+	</div>
 	{% endfor %}
-</ul>
-{% if news_list %}
-<a class="btn btn-secondary float-xs-right" href="{% url 'news.search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search News</a>
-{% endif %}
+</div>
+
 {% comment %}
+{% if news_list %}
+<a class="btn btn-secondary float-xs-right" href="{% url 'news' %}"><i class="fa fa-search" aria-hidden="true"></i> Search News</a>
+{% endif %}
+
 <div class="card">
 	<h5 class="card-header"><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News</h5>
 	<div class="card-block">

@@ -1,24 +1,44 @@
+{% load cache %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_filters %}
+{% load base_tags %}
+{% load theme_tags %}
+{% load nav_tags %}
+{% load event_tags %}
+{% load event_filters %}
+{% load news_tags %}
+{% load story_tags %}
+{% load box_tags %}
 {% load directory_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+{% load article_tags %}
 
 
-<h5>
-  <i class="fa fa-car fa-lg" aria-hidden="true"></i> Primary Sponsors
-  <a class="btn btn-primary float-xs-right" href="/directories/?search_category=&q=&search_method=starts_with&category=1&sub_category=">All Sponsors</a>
-</h5>
-<br>
-<div class="table-responsive">
-  <table>
-    <tbody>
-      <tr>
-        {% list_directories as primary_sponsor_list random="True" limit=4 tags="sponsor, primary" %}
-        {% for sponsor in primary_sponsor_list %}
-        <td>
-          <a href="/directories/{{ sponsor.slug }}"><img src="{{ sponsor.get_logo_url }}" alt="{{ sponsor.headline }}" height="100px"></a>
-        </td>
-        {% endfor %}
-      </tr>
-    </tbody>
-  </table>
+<div class="row text-xs-center">
+	<div class="col-xs-12 col-md-3">
+		<span class="fa-stack fa-2x">
+			<a href="/directories/?search_category=&q=&search_method=starts_with&category=1&sub_category=">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-car fa-stack-1x fa-inverse"></i>
+			</a>
+		</span>
+		<h4>Sponsors</h4>
+	</div>
+  {% list_directories as primary_sponsor_list random="True" limit=3 tags="sponsor, primary" %}
+  {% for sponsor in primary_sponsor_list %}
+	<div class="col-xs-12 col-md-3">
+    <a href="/directories/{{ sponsor.slug }}">
+      <img src="{{ sponsor.get_logo_url }}" alt="{{ sponsor.headline }}" class="img-responsive mx-auto">
+    </a>
+    <br>
+	</div>
+	{% empty %}
+	<div class="col-xs-12 col-md-9">
+	   {% trans 'Primary Sponsors will be shown here. <a href="/directories/add/">Start adding sponsors now!</a>' %}
+	</div>
+	{% endfor %}
 </div>
 
 {% comment %}

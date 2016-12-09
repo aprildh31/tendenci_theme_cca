@@ -18,76 +18,115 @@
 {% theme_extends "base.html" %}
 
 {% block extra_head %}
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- jQuery JS (first) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <!-- Tether JS (second) -->
-  <script src="{{ THEME_URL }}media/tether-1.3.3/dist/js/tether.min.js"></script>
-  <!-- Bootstrap JS (third) -->
-  <script src="{{ THEME_URL }}media/js/bootstrap_cca.min.js"></script>
-  <link rel="stylesheet" href="{{ THEME_URL }}media/css/bootstrap_cca.min.css">
-  <link rel="stylesheet" href="{{ THEME_URL }}media/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="shortcut icon" href="{{ THEME_URL }}media/images/favicon.ico">
-  <link rel="apple-touch-icon" href="{{ THEME_URL }}media/images/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- jQuery JS (first) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Tether JS (second) -->
+<script src="{{ THEME_URL }}media/tether-1.3.3/dist/js/tether.min.js"></script>
+<!-- Bootstrap JS (third) -->
+<script src="{{ THEME_URL }}media/js/bootstrap_cca.min.js"></script>
+<link rel="stylesheet" href="{{ THEME_URL }}media/css/bootstrap_cca.min.css">
+<link rel="stylesheet" href="{{ THEME_URL }}media/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ THEME_URL }}media/css/custom_cca.css">
+<link rel="shortcut icon" href="{{ THEME_URL }}media/images/favicon.ico">
+<link rel="apple-touch-icon" href="{{ THEME_URL }}media/images/apple-touch-icon.png">
 {% endblock extra_head %}
 
 {% block html_body %}
+<div class="container-fluid">
   <div class="container">
-    <header class="{% block header_classes %}page-header{% endblock %}">
+    <header class="{% block header_classes %}text-xs-center{% endblock %}">
+      <br>
       {% block header %}
+        <a href="/"><img class="float-xs-left d-inline-block" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="100px"/></a>
+        <div class="oldcorvette">{{ SITE_GLOBAL_SITEDISPLAYNAME }}</div>
         {% spaceless %}{% theme_include "header.html" %}{% endspaceless %}
       {% endblock %}
     </header>
   </div>
-  <div class="container">
-    {% block content_messages %}
-      {% spaceless %}{% theme_include "base/messages.html" %}{% endspaceless %}
-    {% endblock %}
-  </div>
+  {% block content_messages %}
+    {% spaceless %}{% theme_include "base/messages.html" %}{% endspaceless %}
+  {% endblock %}
   {% block banner %}
   {% endblock %}
   <div class="container">
     <div class="row"> <!-- row1 -->
       <div class="{% block content_classes %}col-xs-12 col-md-8 col-xl-9{% endblock %}">
         {% block content %}
-          {# Main content goes here #}
-          <div class="jumbotron">
-            <h1>CONTENT</h1>
-          </div>
+        {# Main content goes here #}
         {% endblock %}
       </div>
       <div class="{% block sidebar_classes %}col-xs-12 col-md-4 col-xl-3{% endblock %}">
-        {% block sidebar %}
-          <div class="card">
-            <div class="card-block">
-              {% box 3 %} <!-- social links -->
-              <!-- search -->
-              <form class="form-inline w-100" action="{% url 'haystack_search' %}" method="get">
-                <input class="form-control" type="text" placeholder="Search">
-                <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> Search</button>
-              </form>
-            </div>
+      {% block sidebar %}
+        <div class="card">
+          <div class="card-block">
+            <div class="hidden-sm-down">{% box 1 %}</div> <!-- logo -->
+            {% box 3 %} <!-- social links, search -->
+            <form class="form-inline" action="{% url 'haystack_search' %}" method="get">
+              <input class="form-control" type="text" placeholder="Search">
+              <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+            </form>
           </div>
-          <div class="card hidden-sm-down">
-            <div class="card-block">
-              {% box 1 %} <!-- logo -->
-            </div>
+        </div>
+        {% block sidebar_card1 %}
+        <div class="card hidden-sm-down">
+          <div class="card-header">
+            <h5><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Upcoming Events</h5>
           </div>
-          {% block sidebar_card1 %}
-            {% spaceless %}{% theme_include "card_events.html" %}{% endspaceless %}
-          {% endblock %}
-          {% block sidebar_card2 %}
-            {% spaceless %}{% theme_include "card_news.html" %}{% endspaceless %}
-          {% endblock %}
+          <div class="card-block">
+            <ul class="list-group list-group-flush">
+              {% list_events as events_list limit=3 %}
+              {% for event in events_list %}
+              <li class="list-group-item">
+                <a href="{{ event.get_absolute_url }}">
+                  <strong>{% blocktrans with title=event.title %}{{ title }}{% endblocktrans %}</strong><br>
+                </a>
+                {% if event.start_dt|date:"dmy" == event.end_dt|date:"dmy" %}
+                {{ event.start_dt|date:"D, M j, Y"}}
+                <br>
+                {{ event.start_dt|date:"g:i A" }} - {{ event.end_dt|date:"g:i A" }}
+                {% else %}
+                {{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"D, M j, Y - g:i A" }}
+                {% endif %}
+              </li>
+              {% empty %}
+              <li class="list-group-item">{% trans 'Events will be shown here. <a href="/events/add/">Start adding events now!</a>' %}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
         {% endblock %}
-      </div> <!-- end sidebar -->
-    </div> <!-- end row1 -->
-  </div> <!-- end container -->
-  <div class="container">
-    <footer class="{% block footer_classes %}page-footer{% endblock %}">
-      {% block footer %}
-        {% spaceless %}{% theme_include "footer.html" %}{% endspaceless %}
+        {% block sidebar_card2 %}
+        <div class="card hidden-sm-down">
+          <div class="card-header">
+            <h5><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News</h5>
+          </div>
+          <div class="card-block">
+            <ul class="list-group list-group-flush">
+              {% list_news as news_list limit=3 %}
+              {% for news_item in news_list %}
+              <li class="list-group-item">
+                <a href="{{ news_item.get_absolute_url }}">
+                  <strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
+                </a>
+                <br>
+                <em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
+              </li>
+              {% empty %}
+              <li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endblock %}
       {% endblock %}
-    </footer>
-  </div>
+      </div>
+    </div> <!-- end row1 -->
+    </div>
+        <footer class="{% block footer_classes %}page-footer{% endblock %}">
+          {% block footer %}
+          {% spaceless %}{% theme_include "footer.html" %}{% endspaceless %}
+          {% endblock %}
+        </footer>
+</div> <!-- end container -->
 {% endblock %}

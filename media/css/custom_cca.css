@@ -1,0 +1,72 @@
+@font-face {
+  font-family: corvette;
+  src: url(../fonts/corvette.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: oldcorvette;
+  src: url(../fonts/hood_ornament.ttf);
+  font-weight: normal;
+}
+
+.corvette {
+  font-family: corvette;
+  font-size: 2.5rem;
+  color: #c50301;
+  text-shadow: 2px 2px 5px #55595c;
+}
+
+.oldcorvette {
+  font-family: oldcorvette;
+  font-size: 2.5rem;
+  color: #c50301;
+  text-shadow: 2px 2px 5px #55595c;
+  padding: 1.75rem;
+}
+
+#gradient {
+  height: auto;
+  background: rgba(204,204,204,1);
+  background: -moz-linear-gradient(top, rgba(204,204,204,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(204,204,204,1)), color-stop(25%, rgba(255,255,255,1)), color-stop(40%, rgba(221,221,221,1)), color-stop(50%, rgba(221,221,221,1)), color-stop(60%, rgba(112,112,112,1)), color-stop(85%, rgba(238,238,238,1)), color-stop(100%, rgba(204,204,204,1)));
+  background: -webkit-linear-gradient(top, rgba(204,204,204,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -o-linear-gradient(top, rgba(204,204,204,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -ms-linear-gradient(top, rgba(204,204,204,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: linear-gradient(to bottom, rgba(204,204,204,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#cccccc', GradientType=0 );
+}
+
+#gradient1  {
+  height: auto;
+  background: rgba(255,239,8,1);
+  background: -moz-linear-gradient(top, rgba(255,239,8,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,239,8,1)), color-stop(25%, rgba(255,255,255,1)), color-stop(40%, rgba(221,221,221,1)), color-stop(50%, rgba(221,221,221,1)), color-stop(60%, rgba(112,112,112,1)), color-stop(85%, rgba(238,238,238,1)), color-stop(100%, rgba(204,204,204,1)));
+  background: -webkit-linear-gradient(top, rgba(255,239,8,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -o-linear-gradient(top, rgba(255,239,8,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,239,8,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,239,8,1) 0%, rgba(255,255,255,1) 25%, rgba(221,221,221,1) 40%, rgba(221,221,221,1) 50%, rgba(112,112,112,1) 60%, rgba(238,238,238,1) 85%, rgba(204,204,204,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffef08', endColorstr='#cccccc', GradientType=0 );
+}
+
+div.polaroid {
+  width: 49%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 12px 0 rgba(0, 0, 0, 0.19);
+  margin: 2px;
+  margin-bottom: 15px;
+}
+
+div.caption {
+  text-align: center;
+  padding: 10px 10px;
+}
+
+.page-header {
+  border-bottom: 2px solid #000000;
+}
+
+.page-footer {
+  padding-top: 1rem;
+  border-top: 2px solid #000000;
+}

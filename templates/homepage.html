@@ -13,15 +13,20 @@
 {% load directory_tags %}
 {% load photo_tags %}
 {% load video_tags %}
-{% load video_filters %}
+{% load article_tags %}
 
 {% theme_extends "default.html" %}
+
+{% block header %}
+  {% spaceless %}{% theme_include "header.html" %}{% endspaceless %}
+{% endblock %}
 
 {% block banner %}
   <div class="jumbotron jumbotron-fluid">
     <div class="container text-xs-center">
-      <div class="jumbotron-heading display-3">Corvette Club of America</div>
-        <hr class="jumbotron-hr">
+      {# <div class="jumbotron-heading display-4 corvette">Corvette Club of America</div>#}
+      <div class="jumbotron-heading oldcorvette">Corvette Club of America</div>
+        <img class="float-xs-left" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="125px"/>
         {% box 2 %}
         <p><a class="btn btn-primary" href="/about">Learn more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></p>
       </div>
@@ -31,24 +36,16 @@
 {% block content_classes %}<!--full width-->{% endblock %}
 
 {% block content %}
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      {% spaceless %}{% theme_include "card_events.html" %}{% endspaceless %}
-    </div>
-    <div class="col-xs-12 col-md-6">
-      {% spaceless %}{% theme_include "card_news.html" %}{% endspaceless %}
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      {% spaceless %}{% theme_include "card_photos.html" %}{% endspaceless %}
-    </div>
-    <div class="col-xs-12 col-md-6">
-      {% spaceless %}{% theme_include "card_videos.html" %}{% endspaceless %}
-    </div>
-  </div>
-  <br>
+  {% spaceless %}{% theme_include "events.html" %}{% endspaceless %}
+  <hr>
+  {% spaceless %}{% theme_include "news.html" %}{% endspaceless %}
+  <hr>
+  {% spaceless %}{% theme_include "articles.html" %}{% endspaceless %}
+  <hr>
+  {% spaceless %}{% theme_include "photos.html" %}{% endspaceless %}
+  <hr>
+  {% spaceless %}{% theme_include "videos.html" %}{% endspaceless %}
+  <hr>
   {% spaceless %}{% theme_include "sponsors.html" %}{% endspaceless %}
 {% endblock %}
 
