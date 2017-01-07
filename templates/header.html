@@ -25,6 +25,7 @@
   <div class="collapse navbar-collapse" id="navbar-collapse">
     <div class="clearfix">
       {% nav 1 %}
+      {% nav 2 %}
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
         <li><a href="{% url 'auth_logout' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="false"><i class="fa fa-sign-out" aria-hidden="true"></i> {% trans "Sign Out" %}</a><li>
