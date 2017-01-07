@@ -26,13 +26,15 @@
 		</span>
 		<h4>Sponsors</h4>
 	</div>
-  {% list_directories as primary_sponsor_list random="True" limit=3 tags="sponsor, primary" %}
+	<div class="col-xs-12 col-md-3">
+		<a href="/directories/sport-chevrolet"><img src="/files/47/" alt="Sport Chevrolet" class="img-responsive mx-auto">
+	</div>
+  {% list_directories as primary_sponsor_list random="True" limit=2 tags="sponsor, primary" %}
   {% for sponsor in primary_sponsor_list %}
 	<div class="col-xs-12 col-md-3">
     <a href="/directories/{{ sponsor.slug }}">
       <img src="{{ sponsor.get_logo_url }}" alt="{{ sponsor.headline }}" class="img-responsive mx-auto">
     </a>
-    <br>
 	</div>
 	{% empty %}
 	<div class="col-xs-12 col-md-9">

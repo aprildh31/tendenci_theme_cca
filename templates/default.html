@@ -34,99 +34,103 @@
 
 {% block html_body %}
 <div class="container-fluid">
-  <div class="container">
-    <header class="{% block header_classes %}text-xs-center{% endblock %}">
-      <br>
-      {% block header %}
-        <a href="/"><img class="float-xs-left d-inline-block" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="100px"/></a>
-        <div class="oldcorvette">{{ SITE_GLOBAL_SITEDISPLAYNAME }}</div>
-        {% spaceless %}{% theme_include "header.html" %}{% endspaceless %}
-      {% endblock %}
-    </header>
-  </div>
+  <header class="{% block header_classes %}text-xs-center{% endblock %}">
+    <br>
+    <div class="container">
+    {% block header %}
+      <a href="/"><img class="float-xs-left d-inline-block" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="100px"/></a>
+      <div class="oldcorvette">{{ SITE_GLOBAL_SITEDISPLAYNAME }}</div>
+      {% spaceless %}{% theme_include "header.html" %}{% endspaceless %}
+    {% endblock %}
+    </div>
+  </header>
+</div>
+<div class="container">
   {% block content_messages %}
     {% spaceless %}{% theme_include "base/messages.html" %}{% endspaceless %}
   {% endblock %}
-  {% block banner %}
-  {% endblock %}
-  <div class="container">
-    <div class="row"> <!-- row1 -->
-      <div class="{% block content_classes %}col-xs-12 col-md-8 col-xl-9{% endblock %}">
-        {% block content %}
-        {# Main content goes here #}
-        {% endblock %}
-      </div>
-      <div class="{% block sidebar_classes %}col-xs-12 col-md-4 col-xl-3{% endblock %}">
-      {% block sidebar %}
-        <div class="card">
-          <div class="card-block">
-            <div class="hidden-sm-down">{% box 1 %}</div> <!-- logo -->
-            {% box 3 %} <!-- social links, search -->
-            <form class="form-inline" action="{% url 'haystack_search' %}" method="get">
-              <input class="form-control" type="text" placeholder="Search">
-              <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> Search</button>
-            </form>
-          </div>
-        </div>
-        {% block sidebar_card1 %}
-        <div class="card hidden-sm-down">
-          <div class="card-header">
-            <h5><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Upcoming Events</h5>
-          </div>
-          <div class="card-block">
-            <ul class="list-group list-group-flush">
-              {% list_events as events_list limit=3 %}
-              {% for event in events_list %}
-              <li class="list-group-item">
-                <a href="{{ event.get_absolute_url }}">
-                  <strong>{% blocktrans with title=event.title %}{{ title }}{% endblocktrans %}</strong><br>
-                </a>
-                {% if event.start_dt|date:"dmy" == event.end_dt|date:"dmy" %}
-                {{ event.start_dt|date:"D, M j, Y"}}
-                <br>
-                {{ event.start_dt|date:"g:i A" }} - {{ event.end_dt|date:"g:i A" }}
-                {% else %}
-                {{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"D, M j, Y - g:i A" }}
-                {% endif %}
-              </li>
-              {% empty %}
-              <li class="list-group-item">{% trans 'Events will be shown here. <a href="/events/add/">Start adding events now!</a>' %}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        {% endblock %}
-        {% block sidebar_card2 %}
-        <div class="card hidden-sm-down">
-          <div class="card-header">
-            <h5><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News</h5>
-          </div>
-          <div class="card-block">
-            <ul class="list-group list-group-flush">
-              {% list_news as news_list limit=3 %}
-              {% for news_item in news_list %}
-              <li class="list-group-item">
-                <a href="{{ news_item.get_absolute_url }}">
-                  <strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
-                </a>
-                <br>
-                <em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
-              </li>
-              {% empty %}
-              <li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        {% endblock %}
+</div>
+{% block banner %}
+{% endblock %}
+<div class="container">
+  <div class="row"> <!-- row1 -->
+    <div class="{% block content_classes %}col-xs-12 col-md-8 col-xl-9{% endblock %}">
+      {% block content %}
+      {# Main content goes here #}
       {% endblock %}
-      </div>
-    </div> <!-- end row1 -->
     </div>
-        <footer class="{% block footer_classes %}page-footer{% endblock %}">
-          {% block footer %}
-          {% spaceless %}{% theme_include "footer.html" %}{% endspaceless %}
-          {% endblock %}
-        </footer>
+    <div class="{% block sidebar_classes %}col-xs-12 col-md-4 col-xl-3{% endblock %}">
+    {% block sidebar %}
+      <div class="card">
+        <div class="card-block">
+          <div class="hidden-sm-down">{% box 1 %}</div> <!-- logo -->
+          {% box 3 %} <!-- social links, search -->
+          <form class="form-inline" action="{% url 'haystack_search' %}" method="get">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+          </form>
+        </div>
+      </div>
+      {% block sidebar_card1 %}
+      <div class="card hidden-sm-down">
+        <div class="card-header">
+          <h5><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Upcoming Events</h5>
+        </div>
+        <div class="card-block">
+          <ul class="list-group list-group-flush">
+            {% list_events as events_list limit=3 %}
+            {% for event in events_list %}
+            <li class="list-group-item">
+              <a href="{{ event.get_absolute_url }}">
+                <strong>{% blocktrans with title=event.title %}{{ title }}{% endblocktrans %}</strong><br>
+              </a>
+              {% if event.start_dt|date:"dmy" == event.end_dt|date:"dmy" %}
+              {{ event.start_dt|date:"D, M j, Y"}}
+              <br>
+              {{ event.start_dt|date:"g:i A" }} - {{ event.end_dt|date:"g:i A" }}
+              {% else %}
+              {{ event.start_dt|date:"D, M j, Y - g:i A" }} - {{ event.end_dt|date:"D, M j, Y - g:i A" }}
+              {% endif %}
+            </li>
+            {% empty %}
+            <li class="list-group-item">{% trans 'Events will be shown here. <a href="/events/add/">Start adding events now!</a>' %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endblock %}
+      {% block sidebar_card2 %}
+      <div class="card hidden-sm-down">
+        <div class="card-header">
+          <h5><i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Latest News</h5>
+        </div>
+        <div class="card-block">
+          <ul class="list-group list-group-flush">
+            {% list_news as news_list limit=3 %}
+            {% for news_item in news_list %}
+            <li class="list-group-item">
+              <a href="{{ news_item.get_absolute_url }}">
+                <strong>{% blocktrans with h=news_item.headline %}{{ h }}{% endblocktrans %}</strong>
+              </a>
+              <br>
+              <em>{% blocktrans with c=news_item.summary|striptags|safe|truncatewords:"10" %}{{ c }}{% endblocktrans %}</em>
+            </li>
+            {% empty %}
+            <li class="list-group-item">{% trans 'News will be shown here. <a href="/news/add/">Start adding news now!</a>' %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endblock %}
+    {% endblock %}
+    </div>
+  </div> <!-- end row1 -->
 </div> <!-- end container -->
+<div class="container-fluid">
+  <footer class="{% block footer_classes %}page-footer{% endblock %}">
+    {% block footer %}
+    {% spaceless %}{% theme_include "footer.html" %}{% endspaceless %}
+    {% endblock %}
+  </footer>
+</div>
 {% endblock %}

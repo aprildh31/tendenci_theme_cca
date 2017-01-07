@@ -26,10 +26,10 @@
     <div class="container text-xs-center">
       {# <div class="jumbotron-heading display-4 corvette">Corvette Club of America</div>#}
       <div class="jumbotron-heading oldcorvette">Corvette Club of America</div>
-        <img class="float-xs-left" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="125px"/>
-        {% box 2 %}
-        <p><a class="btn btn-primary" href="/about">Learn more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></p>
-      </div>
+      <img class="float-xs-left" src="/files/{{ MODULE_THEME_LOGO }}" alt="{{ SITE_GLOBAL_SITEDISPLAYNAME }}" width="125px"/>
+      {% box 2 %}
+      <p><a class="btn btn-primary" href="/about">Learn more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></p>
+    </div>
   </div>
 {% endblock %}
 
@@ -48,6 +48,8 @@
   <hr>
   {% spaceless %}{% theme_include "sponsors.html" %}{% endspaceless %}
 {% endblock %}
+
+{% block sidebar_classes %}hidden-xs-up{% endblock %}
 
 {% block sidebar %}<!--no sidebar-->{% endblock %}
 

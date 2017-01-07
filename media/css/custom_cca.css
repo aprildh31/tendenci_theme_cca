@@ -63,10 +63,15 @@ div.caption {
 }
 
 .page-header {
-  border-bottom: 2px solid #000000;
+  border-bottom: 1px solid #c50301;
 }
 
 .page-footer {
-  padding-top: 1rem;
-  border-top: 2px solid #000000;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #c50301;
+}
+
+.shadow {
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
